@@ -277,6 +277,7 @@ body::after {
         flex-direction: column;
         text-align: center;
         padding-top: 8rem;
+        gap: 0;
     }
 
     .hero-content {
@@ -284,22 +285,34 @@ body::after {
         display: flex;
         flex-direction: column;
         align-items: center;
+        order: 2;
+        position: relative;
+        z-index: 10;
     }
 
     .description {
         max-width: 100%;
     }
 
+    /* Move sphere above text on mobile */
     .hero-asset {
+        order: 1;
         position: relative;
-        width: 100vw;
-        left: -5%;
-        /* account for container padding */
-        height: 50vh;
+        width: 100%;
+        left: 0;
+        height: 45vh;
+        min-height: 280px;
+        max-height: 380px;
     }
 
     .spline-placeholder {
-        min-height: 400px;
+        min-height: unset;
+        height: 100%;
+    }
+
+    /* My Work Section */
+    .work-section {
+        overflow: visible;
     }
 
     .work-container {
@@ -316,14 +329,24 @@ body::after {
     /* Carousel Responsive */
     .carousel-container {
         width: 100%;
-        height: 350px;
-        flex: none;
+        max-width: 100%;
+        height: 220px;
+    }
+
+    .carousel-cards {
+        width: 100%;
+        height: 100%;
     }
 
     .card {
-        width: 90%;
-        aspect-ratio: 16 / 9;
-        height: auto;
+        width: 88%;
+        height: 90%;
+        aspect-ratio: unset;
+    }
+
+    /* Hide arrows on mobile — swipe is available */
+    .carousel-controls {
+        display: none;
     }
 
     .card.state-1 {
@@ -389,7 +412,7 @@ body::after {
 /* Stacked Carousel Container */
 .carousel-container {
     position: relative;
-    flex: 1.5;
+    flex-shrink: 0;
     width: 100%;
     max-width: 900px;
     height: 450px;
@@ -813,13 +836,17 @@ body::after {
 
 @media (max-width: 992px) {
     .footer-container {
-        flex-direction: column;
-        text-align: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
         gap: 1.5rem;
     }
 
     .footer-center,
     .footer-right {
+        flex-direction: row;
+        flex-wrap: wrap;
         justify-content: center;
         gap: 1.5rem;
     }
@@ -966,48 +993,53 @@ body::after {
 /* --- Global Mobile Responsiveness Updates --- */
 @media (max-width: 768px) {
 
-    /* Navbar */
+    /* Navbar — keep it in one compact horizontal row */
     .navbar {
-        padding: 1.5rem 5%;
-        flex-wrap: wrap;
-        gap: 1rem;
-        justify-content: center;
+        padding: 0.75rem 4%;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
     }
 
     .logo {
-        width: 100%;
-        text-align: center;
-        margin-bottom: 0.5rem;
+        width: auto;
+        text-align: left;
+        margin-bottom: 0;
+        font-size: 1.2rem;
     }
 
     .nav-links {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1rem;
+        width: auto;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+        gap: 0.5rem;
     }
 
-    .nav-links .nav-contact,
-    .nav-links a,
-    .nav-links .nav-btn {
+    .nav-links .nav-contact {
         margin-left: 0;
+        font-size: 0.8rem;
+    }
+
+    .nav-links .nav-btn {
+        margin-left: 0.5rem;
+        padding: 0.4rem 1rem;
+        font-size: 0.8rem;
     }
 
     /* Hero Section */
     .hero {
-        padding-top: 10rem;
-    }
-
-    .title {
-        font-size: clamp(4rem, 15vw, 6rem);
+        padding-top: 4rem;
     }
 
     .hero-asset {
         height: 40vh;
+        min-height: 250px;
+        max-height: 340px;
     }
 
-    .spline-placeholder {
-        min-height: 300px;
+    .title {
+        font-size: clamp(4rem, 15vw, 6rem);
     }
 
     /* Section Headers */
@@ -1018,7 +1050,7 @@ body::after {
 
     /* Gallery */
     .gallery-section {
-        padding-top: 11rem;
+        padding-top: 6rem;
     }
 
     /* My Work Section */
@@ -1035,6 +1067,7 @@ body::after {
     .carousel-container {
         width: 100%;
         max-width: 100%;
+        height: 220px;
     }
 
     /* Contact Page */
@@ -1047,41 +1080,70 @@ body::after {
         gap: 1.5rem;
     }
 
-    /* Footer */
+    /* Footer — keep horizontal layout */
     .footer-container {
-        gap: 1.5rem;
-        flex-direction: column;
+        gap: 1rem;
+        flex-direction: row;
         align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .footer-left {
+        gap: 0.1rem;
+    }
+
+    .footer-left .logo {
+        font-size: 1.2rem;
+    }
+
+    .footer-left p {
+        font-size: 0.75rem;
     }
 
     .footer-center,
     .footer-right {
-        gap: 1rem;
-        flex-direction: column;
+        gap: 0.75rem;
+        flex-direction: row;
         align-items: center;
+        flex-wrap: wrap;
     }
 
-    .footer-left .logo {
-        text-align: center;
-        width: 100%;
-    }
-
-    .footer-left p {
-        text-align: center;
+    .footer-center a,
+    .footer-right a {
+        font-size: 0.8rem;
     }
 }
 
 @media (max-width: 576px) {
 
-    /* Navbar adjustments for very small screens */
-    .nav-links {
-        flex-direction: column;
-        align-items: center;
+    /* Navbar — compact single row, hide 'Contact us' text to save space */
+    .navbar {
+        padding: 0.6rem 4%;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+    }
+
+    .nav-links .nav-contact {
+        display: none;
+    }
+
+    .nav-links .nav-btn {
+        padding: 0.4rem 0.9rem;
+        font-size: 0.78rem;
     }
 
     /* Hero Section */
     .hero {
-        padding-top: 12rem;
+        padding-top: 3rem;
+    }
+
+    .hero-asset {
+        height: 35vh;
+        min-height: 220px;
+        max-height: 300px;
     }
 
     .title {
@@ -1103,32 +1165,66 @@ body::after {
         text-align: center;
     }
 
-    /* Carousel / Cards */
+    /* My Work Carousel */
+    .work-section {
+        padding: 2.5rem 4%;
+    }
+
     .work-container {
-        padding: 0 1rem;
+        padding: 0;
+        gap: 1.5rem;
     }
 
     .carousel-container {
-        height: 300px;
+        height: 200px;
     }
 
-    .card-content h3 {
-        font-size: 1.3rem;
-    }
-
-    .card-content p {
-        font-size: 0.9rem;
+    .card {
+        width: 90%;
+        height: 90%;
+        aspect-ratio: unset;
     }
 
     .card.state-1,
     .card.state--1 {
         opacity: 0;
-        /* Hide side cards on mobile to reduce clutter */
+    }
+
+    .card-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .card-content p {
+        font-size: 0.85rem;
+    }
+
+    /* Footer — keep horizontal but compact */
+    .footer-container {
+        flex-direction: row;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .footer-left p {
+        font-size: 0.7rem;
+    }
+
+    .footer-center,
+    .footer-right {
+        gap: 0.5rem;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .footer-center a,
+    .footer-right a {
+        font-size: 0.75rem;
     }
 
     /* Gallery */
     .gallery-section {
-        padding-top: 12rem;
+        padding-top: 5rem;
     }
 
     .bento-grid {
