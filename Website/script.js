@@ -1,3 +1,10 @@
+window.addEventListener('load', () => {
+    const loadingScreen = document.getElementById('loading-screen');
+    if (loadingScreen) {
+        loadingScreen.classList.add('hidden');
+    }
+});
+
 // Placeholder script for future interactive additions or 3D Spline asset handling
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Portfolio initialized.');
